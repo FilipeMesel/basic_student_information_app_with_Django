@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Cadastro de Estudantes</title>
+</head>
+<body>
+    <ul class="sidebar-nav">
+        <li><a href="{% url 'cadastrar_entidade' %}">Cadastro de Estudantes</a></li>
+        <li><a href="{% url 'home' %}">Lista de Estudabtes</a></li>
+    </ul>
+    <div class="login-form-body">
+            <h1 class="login-form-h1">Cadastrar Estudante</h1>
+            <form class="login-form-form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="login-form-button" type="submit">Salvar</button>
+            </form>
+            <a href="{% url 'home' %}">Voltar para a home</a>
+    </div>
+</body>
+</html>

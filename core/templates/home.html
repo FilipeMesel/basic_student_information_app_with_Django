@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Home</title>
+</head>
+<body>
+    <ul class="sidebar-nav">
+        <li><a href="{% url 'cadastrar_entidade' %}">Cadastro de Estudantes</a></li>
+        <li><a href="{% url 'home' %}">Lista de Estudabtes</a></li>
+    </ul>
+    <div class="lista_alimentos_body">
+        <table>
+            <caption>Lista de Estudantes</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Classe</th>
+                    <th>Marks</th>
+                    <th>Configurações</th>
+                </tr>
+            </thead>
+            <tbody class="lista_alimentos_ul">
+                {% for estudante in estudantes_da_pagina %}
+                <tr class="lista_alimentos_li">
+                    <td>{{ estudante.id }}</td>
+                    <td>{{ estudante.nome }}</td>
+                    <td>{{ estudante.email }}</td>
+                    <td>{{ estudante.telefone }}</td>
+                    <td>{{ estudante.classe }}</td>
+                    <td>{{ estudante.marks }}</td>
+                    <td>
+                        <a href="{% url 'editar_entidade' estudante.id %}" class="details-form-button">Detalhes</a>
+                        <a href="{% url 'deletar_entidade' estudante.id %}" class="delete-form-button">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- Exiba a paginação -->
+        <div class="pagination">
+            <span>Página {{ page.number }} de {{ page.paginator.num_pages }}.</span>
+            {% if page.has_previous %}
+            <a href="?page=1">Primeira</a>
+            <a href="?page={{ page.previous_page_number }}">Anterior</a>
+            {% endif %}
+            {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}">Próxima</a>
+            <a href="?page={{ page.paginator.num_pages }}">Última</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
